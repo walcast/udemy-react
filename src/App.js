@@ -6,32 +6,30 @@ import Person from './Person/Person'
 class App extends Component {
   state = {
     persons:[
-      {name:'Max', age:28},
-      {name:'Manu', age:29},
-      {name:'Stephanie', age:26}
+      {id:'yui', name:'Max', age:28},
+      {id:'dsw', name:'Manu', age:29},
+      {id:'qeg', name:'Stephanie', age:26}
     ],
     otherState:'Some other value',
     showPersons:false
   }
 
-  switchNameHandler = (newName) => {
+  nameChangeHandler = (event) => {
     this.setState({
       persons:[
-        {name:newName, age:28},
-        {name:'Manu', age:29},
-        {name:'Stephanie', age:27}
+        {id:'wer', name:'Max', age:28},
+        {id:'dsd', name:event.target.value, age:29},
+        {id:'fas', name:'Stephanie', age:27}
       ]
     })
   }
 
-  nameChangeHandler = (event) => {
-    this.setState({
-      persons:[
-        {name:'Max', age:28},
-        {name:event.target.value, age:29},
-        {name:'Stephanie', age:27}
-      ]
-    })
+  deletePersonHandler = (personIndex) => {
+    //slice returns a copy instead of a reference
+    //const persons = this.state.persons.slice();
+    const persons = [...this.state.persons];
+    persons.splice(personIndex, 1);
+    this.setState({persons:persons})
   }
 
   togglePersonsHandler = () => {
@@ -52,17 +50,13 @@ class App extends Component {
     if(this.state.showPersons) {
       persons = (
         <div>
-          <Person 
-            name={this.state.persons[0].name} 
-            age={this.state.persons[0].age}/>
-          <Person 
-            name={this.state.persons[1].name} 
-            age={this.state.persons[1].age}
-            click={this.switchNameHandler.bind(this,'Max!')} 
-            change={this.nameChangeHandler}>My hobbies: Racing</Person>//Use bind always you can
-          <Person 
-            name={this.state.persons[2].name} 
-            age={this.state.persons[2].age}/>
+          {this.state.persons.map((person, index) => {
+            return <Person
+            click = {() => this.deletePersonHandler(index)} 
+            name={person.name} 
+            age={person.age}
+            key={person.id}/>
+          })}
         </div> 
       )
     }
