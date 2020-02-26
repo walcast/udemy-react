@@ -1,9 +1,33 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import classes from './Cockpit.module.css';
 
 
-const cockpit = (props) => {
-    let subtitleClasses = [];
+const Cockpit = (props) => {
+  //  Combines componentDidMount and componenDidUpdate
+  //  Will run in every render cycle
+  useEffect(() => {
+    console.log('[Cockpit.js] useEffect');
+    // http request
+    const timeout = setTimeout(() => {
+      alert('Saved data to cloud!');
+    }, 1000);
+
+    return () => {
+      clearTimeout(timeout);
+      console.log('[Cockpit.js] cleanup work in useEffects');
+    }
+
+  }, []);//[] only runs first time or in unmounts
+
+  useEffect(() => {
+    console.log('[Cockpit.js] 2nd useEffect');
+    return () => {
+      console.log('[Cockpit.js] cleanup work in 2nd useEffects');
+    };
+
+  });
+  
+  let subtitleClasses = [];
     
     let buttonClass = '';
     if(props.showPersons) {
@@ -28,4 +52,4 @@ const cockpit = (props) => {
 
 };
 
-export default cockpit;
+export default Cockpit;
