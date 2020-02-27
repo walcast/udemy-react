@@ -1,14 +1,14 @@
-import React, {Component}  from 'react';
+import React, {PureComponent}  from 'react';
 import Person from './Person/Person'
 
-class Persons extends Component {
-    shouldComponentUpdate(nextProps, nextStage) {
+class Persons extends PureComponent {
+    /*shouldComponentUpdate(nextProps, nextStage) {
         console.log('[Persons.js] shouldComponentUpdate');
         if(nextProps.persons !== this.props.persons) {
             return true;
         }
         return false;
-    }
+    }*/
 
     getSnapshotBeforeUpdate(prevProps, prevUpdate) {
         console.log('[Persons.js] getSnapshotBeforeUpdate');
@@ -39,4 +39,4 @@ class Persons extends Component {
     }
 };
 
-export default React.memo(Persons);
+export default Persons;
