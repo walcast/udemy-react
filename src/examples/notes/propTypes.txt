@@ -1,0 +1,2 @@
+propTypes is a library that allows adding documentation to your components
+- you can define what kind of attributes your component requires

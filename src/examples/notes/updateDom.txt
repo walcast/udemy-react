@@ -1,0 +1,11 @@
+- render() is called
+-- does not update the real DOM immediately
+-- compares the two virtual DOMs 
+-- souldComponentUpdate prevent unnecessary render calls
+-- virtualDOM (react keep two copies of the DOM)
+--- oldVirtualDOM
+--- re-renderedVitualDOM
+--- Difference found?Update "real" DOM
+-- Only renders where differences are found
+
+

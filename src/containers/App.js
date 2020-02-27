@@ -1,7 +1,8 @@
-import React, {Component} from 'react';
+import React, {Component, Fragment} from 'react';
 import classes from './App.module.css';
 import Persons from '../components/Persons/Persons';
 import Cockpit from '../components/Cockpit/Cockpit';
+import wrapClass from '../hoc/wrapClass';
 
 
 class App extends Component {
@@ -18,7 +19,8 @@ class App extends Component {
     ],
     otherState:'Some other value',
     showPersons:false, 
-    showCockpit:true
+    showCockpit:true,
+    changeCounter:0
   }
 
   static getDerivedStateFromProps(props, state) {
@@ -53,7 +55,10 @@ class App extends Component {
 
     persons[personIndex] = person;
 
-    this.setState({persons:persons});
+    /*When set state depends on himself use a function to ensure you have
+      the correct values, set state is in a queue so it is not inmediate*/
+    this.setState((prevState, props) =>{
+      return {persons:persons, changeCounter:prevState.changeCounter + 1}});
   }
 
   deletePersonHandler = (personIndex) => {
@@ -79,7 +84,8 @@ class App extends Component {
     }
 
     return (
-        <div className={classes.app}>
+        /*<WithClass classes = {classes.app}>*/
+        <Fragment>
           <button onClick={() => this.setState({showCockpit:!this.state.showCockpit})}>Show Cockpit</button>
           {this.state.showCockpit ? 
             <Cockpit
@@ -89,10 +95,10 @@ class App extends Component {
             clicked = {this.togglePersonsHandler}/>
            : null }
           {persons}
-        </div>
+        </Fragment>
     );
   }
 }
 
 
-export default App;
+export default wrapClass(App, classes.app);
