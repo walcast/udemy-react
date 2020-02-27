@@ -1,6 +1,6 @@
 Component Lifecycle
 
-- Component Creation
+- Creation
 -- Lifecycle Hooks is not related with React Hooks
 1 -- Constructor(ie6 feature)
 --- Call Super(props)
@@ -19,3 +19,30 @@ Component Lifecycle
 --- Cuase side effects
 --- Dont update state
 --- trigger re-render
+
+- Update
+1 -- getDerivedStateFromProps(props, state)
+--- Sync state to props
+--- Dont cause side effects
+
+2 -- shouldComponentUpdate(nextProps, nextStage)
+--- May cancel updating process
+--- Decide whether to continue or not
+--- Dont cause side effects
+
+3 -- render()
+--- Prepare & structure your jsx code
+--- Update and render child Component
+
+4 -- getSnapshotBeforeUpdate(prevProps, prevState)
+--- Last-minute DOM ops
+--- Dont cause side effects
+--- Example apply scrolls
+
+5 -- componentDidUpdate()
+--- Cause side effects
+--- Dont update state (trigger re-render)
+
+
+
+

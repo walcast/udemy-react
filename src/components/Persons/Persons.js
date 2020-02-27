@@ -2,14 +2,12 @@ import React, {Component}  from 'react';
 import Person from './Person/Person'
 
 class Persons extends Component {
-    /*static getDerivedStateFromProps(props, state) {
-        console.log('[Persons.js] getDerivedStateFromProps');
-        return state;
-    }*/
-
     shouldComponentUpdate(nextProps, nextStage) {
         console.log('[Persons.js] shouldComponentUpdate');
-        return true;
+        if(nextProps.persons !== this.props.persons) {
+            return true;
+        }
+        return false;
     }
 
     getSnapshotBeforeUpdate(prevProps, prevUpdate) {
@@ -41,4 +39,4 @@ class Persons extends Component {
     }
 };
 
-export default Persons;
+export default React.memo(Persons);
