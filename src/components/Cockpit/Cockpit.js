@@ -1,4 +1,4 @@
-import React, {useEffect, useRef} from 'react'
+import React, {useEffect, useRef, useContext} from 'react'
 import classes from './Cockpit.module.css';
 import AuthContext from '../../context/auth-context';
 
@@ -6,7 +6,7 @@ import AuthContext from '../../context/auth-context';
 const Cockpit = (props) => {
 
   const toggleButtonRef = useRef(null);
-
+  const context = useContext(AuthContext);
   //  Combines componentDidMount and componenDidUpdate
   //  Will run in every render cycle
   useEffect(() => {
@@ -52,9 +52,7 @@ const Cockpit = (props) => {
             <h1>{props.title}</h1>
             <p className={subtitleClasses.join(' ')}>This is really working!</p>
             <button ref={toggleButtonRef} className={buttonClass} onClick={() => props.clicked() }>Show Persons</button>
-            <AuthContext.Consumer>
-              {(context) => <button onClick={() => context.login() }>Login</button>}
-            </AuthContext.Consumer>
+            { <button onClick={() => context.login() }>Login</button>}
             
         </div>
     );
